@@ -1,0 +1,135 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: apiTest
+host: localhost:8080
+paths:
+  /users:
+    get:
+      summary: Get all users list
+      tags:
+        - User
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        'default':
+          description: Not 200
+          schema:
+            $ref: '#/definitions/Error'
+
+  /users/{id}:
+    get:
+      summary: Get user by id
+      tags:
+        - User
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Succes
+          schema:
+            $ref: '#/definitions/User'
+        'default':
+          description: Not 200
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: Delete user by id
+      tags:
+        - User
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Succes
+        'default':
+          description: Not 200
+          schema:
+            $ref: '#/definitions/Error'
+  /users/{id}/{userName}/{phone}:
+    put:
+      summary: Update user by id
+      tags:
+        - User
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - name: userName
+          in: path
+          required: true
+          type: string
+        - name: phone
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Succes
+          schema: {}
+  /users/{userName}/{phone}:
+    post:
+      summary: Create user
+      tags:
+        - User
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: userName
+          in: path
+          required: true
+          type: string
+        - name: phone
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Succes
+          schema: {}
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+      userName:
+        type: string
+      phone:
+        type: string
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
